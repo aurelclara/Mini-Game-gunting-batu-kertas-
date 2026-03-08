@@ -57,7 +57,7 @@
 
             winCalculation() {
                 if (this.botOption === "🖐" && this.playerOption === "✌") {
-                    return this.winner = this.botName;
+                    return this.winner = this.playerName;
                 } else if (this.botOption === "🖐" && this.playerOption === "✊") {
                     return this.winner = this.botName;
                 } else if (this.botOption === "✌" && this.playerOption === "🖐") {
@@ -67,7 +67,7 @@
                 } else if (this.botOption === "✊" && this.playerOption === "🖐") {
                     return this.winner = this.playerName;
                 } else if (this.botOption === "✊" && this.playerOption === "✌") {
-                    return this.winner = this.playerName;
+                    return this.winner = this.botName;
                 } else {
                     return this.winner = "SERI"
             }
