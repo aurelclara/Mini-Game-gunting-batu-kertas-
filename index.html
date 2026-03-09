@@ -5,12 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styling.css"/>
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#ffc0cb">
 
-    <title>Mini Games</title>
+    <title>rock paper scissors</title>
 </head>
 <body>
    <div id="app">
+        <h1 class="game-title">🎮 Rock Paper Scissors</h1>
+
         <div class="summary">
+            <div class="score">
+                <p>Player: <span id="playerScore">0</span></p>
+                <p>Paper King: <span id="botScore">0</span></p>
+            </div>
             <h1 class="title">MATCH RESULT</h1>
             <br/>
             <h1 id="inGame"></h1>
@@ -21,13 +29,21 @@
             <div class="option" onclick="pickOption('✊')">✊</div>
             <div class="option" onclick="pickOption('🖐')">🖐</div>
         </div>
+        <div class="body">
+             <button onclick="resetGame()">Reset Game</button>
+
+        </div>
    </div> 
 
     <script>
+        let playerScore = 0;
+        let botScore = 0;
+        let isPlaying = false; 
+
         class Start {
             constructor() {
                 this.playerName = "Player"
-                this.botName = "Relbot"
+                this.botName = "paper king"
                 this.playerOption;
                 this.botOption;
                 this.winner = ""
@@ -82,7 +98,12 @@
     }
 }
 
+        
         function pickOption(params) {
+
+            if(isPlaying) return;
+            isPlaying = true;
+
             const start = new Start();
             start.setPlayerOption = params;
             start.setBotOption = start.botBrain();
@@ -93,15 +114,42 @@
             const inGame = document.getElementById("inGame");
             const result = document.getElementById("result");
 
-            inGame.textContent = "...";
-            result.textContent = "...";
+            inGame.textContent = "paper king sedang berpikir 🤖...";
+            result.textContent = "Tunggu sebentar...";
 
         setTimeout(() => {
+
             inGame.innerHTML = `${start.playerName} VS ${start.botName} <br> ${start.getPlayerOption} VS ${start.getBotOption}`;
             result.textContent = start.matchResult();
-        }, 2000);
+
+            if(start.winner === start.playerName){
+            playerScore++;
+            } else if(start.winner === start.botName){
+        botScore++;
+}
+            document.getElementById("playerScore").textContent = playerScore;
+            document.getElementById("botScore").textContent = botScore;
+
+             isPlaying = false; 
+
+        }, 2000);       
         }
-    </script>
+
+        function resetGame(){
+            playerScore = 0;
+            botScore = 0;
+
+            document.getElementById("playerScore").textContent = 0;
+            document.getElementById("botScore").textContent = 0;
+
+            document.getElementById("inGame").textContent = "";
+            document.getElementById("result").textContent = "";
+        }
+
+        if ("serviceWorker" in navigator) {
+        navigator.serviceWorker.register("service-worker.js");
+        }   
+        </script>
 </body>
 
 </html>
