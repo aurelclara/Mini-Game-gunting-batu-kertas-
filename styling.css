@@ -1,5 +1,6 @@
 body {
     background-color: pink;
+    font-family: 'Poppins', sans-serif;
 }
 
 :root {
@@ -53,4 +54,5 @@ body,
 
 .title {
     text-align: center;
+
 }
